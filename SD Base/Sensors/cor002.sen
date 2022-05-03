@@ -1,0 +1,14 @@
+[cor002 - Correntometro]
+ID=68
+Descripcion= Correntometro
+Unidad=m/s
+Decimales=2
+;Entrada=TENSION
+Entrada=PULSO
+Modo=CICLO
+;Modo=ACUMULAR
+;Salida=TEXTO
+Salida=NUMERO
+X=0;500;
+Y=0;5;
+--=--
