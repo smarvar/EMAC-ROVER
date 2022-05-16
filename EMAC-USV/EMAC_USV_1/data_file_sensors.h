@@ -62,76 +62,60 @@ Sensors_data USV_data;
 
 //Scans the contents of a file using a given path and description
 String Scan_file(const char *filename, const char *variable){
-      
-      while (true) {
          char sectName[bufferLen];
          IniFileState state;     
          IniFile ini(filename);
-         
           if (!ini.open()) {
               return "Ini file does not exist ";
-              break;
           }
-        
           // Check the file is valid. This can be used to warn if any lines
           // are longer than the buffer.
           if (!ini.validate(buffer_data, bufferLen)) {
               return "ini file not valid ";
-              break;
           }
           else{ 
               while (ini.browseSections(sectName, bufferLen, state)) {
                   if (ini.getValue(sectName, variable, buffer_data, bufferLen)) { 
                       return buffer_data;
-                      break;
-                  } 
+                  }
                   else{
                       return "No variable ";  
-                      break;
                     }
               }
           }
-      }
 }
 
 //Get the path of a file if it exists in the folder
-String GetFilePath(String name_file, String folder) {
-    
-      print_SD = SD.open(Sensors_folder);    
-      String fil; 
+String GetFilePath(String name_file, String folder){
+      print_SD = SD.open(Sensors_folder);
+      String fil;
       String path;
-      while (true) {
-          File entry =  print_SD.openNextFile();    
+      while (true){
+          File entry = print_SD.openNextFile();    
           fil = entry.name();
           fil.toLowerCase();
-          
-          if (name_file == fil){
-              path += folder;
-              path += "/";
-              path += name_file;   
-              entry.close();
-              return path;
-              break;      
-            }
-      
-          if (! entry) {
-            // no more files
-              return "no_file";
-              break;
+          if (entry){
+              if (name_file == fil){
+                path += folder;
+                path += "/";
+                path += name_file;
+                entry.close();
+                return path;
+              }
+          }else{
+            entry.close();
+            return "no_file";
           }
-           entry.close();
-      }
+          entry.close();
+     }
 }
-
 
 //Reading file sensors by channel
 void Sensors(bool print_serial){
-
     for (int cont = 0; cont < analog_sensors; cont += 1){  
         String file_name = Scan_file(Conf_file, channel[cont]);    
         String path = GetFilePath(file_name, Sensors_folder);
-         
-        if (file_name != "0" && path != "no_file"){               
+        if (file_name != "0" && path != "no_file"){      
             char path_char[bufferLen];
             path.toCharArray(path_char, bufferLen);    
             String ID = Scan_file(path_char, "ID");
@@ -172,7 +156,7 @@ void Sensors(bool print_serial){
                 Serial.println();
                 }  
         }
-        else{
+        else{     
             Sensorx[cont].ID = 0;
             Sensorx[cont].Descripcion ="NA";
             Sensorx[cont].Unidad ="NA";
@@ -184,18 +168,17 @@ void Sensors(bool print_serial){
             Sensorx[cont].Y = "0";
             Serial.print("Channel_conf: ");
             Serial.print(cont);  
-            Serial.print(" has no sensor assigned, or the file doesn't exist ");   
+            Serial.print("has no sensor assigned, or the file doesn't exist");   
             Serial.println();                  
         }
     }
 }
 
 //Get sensor value by channel selected
-float SensorValue(int channel){  
-  
+float SensorValue(int channel){
       Sensorx[channel].Raw= analogRead(channel);
       //Sensorx[channel].Raw = 512; //Valor de prueba
-      float Analogic_value = Sensorx[channel].Raw * analog_resolution;
+      float Analogic_value = Sensorx[channel].Raw*analog_resolution;
       if (Sensorx[channel].Descripcion != "NA"){
           for (int pos=0; pos <= Sensorx[channel].X.length(); pos+=1){
               String X1 = s.separa(Sensorx[channel].X, sens_separator, pos);
@@ -212,40 +195,28 @@ float SensorValue(int channel){
                   float real_value = (m*Analogic_value)+b;
                   pos = Sensorx[channel].X.length()+1;
                   return real_value;
-                  break;
               }
           }
       }
-      else {
+      else{
           return 0;
       }
 }
 
-
 void Pulse_counter(){
-  digital_counter += 1;  
-  USV_data.sens_8 = digital_counter*correntometro_coversion;
- }
-
-
-void counter_zero(){
-    if (millis() - last_interrupt > seconds_interrupt*1000){
-        last_interrupt = millis();
-        digital_counter = 0;
-        USV_data.sens_8 = digital_counter*correntometro_coversion;
-    }
+  digital_counter ++;
 }
 
-
+void counter_total(){
+        USV_data.sens_8 = digital_counter*correntometro_coversion;
+        digital_counter = 0;
+}
 // Function that reads and prints the analog ports for others sensors connected
 
 void Data_sensors (){
-  
-     for (int ch = 0; ch < analog_sensors; ch += 1) {  
-            
+     for (int ch = 0; ch < analog_sensors; ch ++) {
           if (Sensorx[ch].Descripcion != "NA"){    
-                               
-              switch (ch) {
+              switch (ch){
                   case 0:
                     USV_data.sens_0 = SensorValue(ch);
                     break;
@@ -272,6 +243,5 @@ void Data_sensors (){
                     break;                                   
             }
         }
-
     }
 }

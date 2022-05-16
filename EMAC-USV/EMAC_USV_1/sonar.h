@@ -18,7 +18,7 @@ String P_data;
 void Data_sonar(bool profile_data){        
   
    // Get profile points vector
-   if (ping.request(Ping1DNamespace::Profile)){           
+   if (ping.request(Ping1DNamespace::Profile)){         
         OK_Sonar = "OK";
         USV_data.angle_sonar = angle_sonar; // Angle in grades
         USV_data.deep_sonar = ping.distance(); // Deep in mm
@@ -30,7 +30,7 @@ void Data_sonar(bool profile_data){
                 }                                          
             USV_data.profile_sonar = P_data;
             P_data = "";        
-        }                                                       
+        }                                             
     } 
     else{
         OK_Sonar = "NA"; 

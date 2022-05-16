@@ -1,4 +1,3 @@
- 
 //Bluetooth attached to serial3 port
 
 String text_bluetooth = "", Status_REC ="", Data_file ="";
@@ -11,20 +10,17 @@ void Bluetooth_conf(){
   Serial3.begin(Bluetooth_Baud); // BT serial port started
 }
 
-void Bluetooth_read(){
-    
+void Bluetooth_read(){  
     //Read data from Bluetooth
     while(Serial3.available()>0)
-      text_bluetooth = Serial3.readString();
-    
+    text_bluetooth = Serial3.readString();
     Serial3.println(text_bluetooth);
-    
     if (text_bluetooth.equals("$REC")){
         flag = 1;
         new_file = 1;  
         Serial.println("SD data recording enabled");
         Serial3.println(text_bluetooth);
-    } 
+    }
     if(text_bluetooth.equals("$STOP")){
         flag = 0;
         new_file = 0;

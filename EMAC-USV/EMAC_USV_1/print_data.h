@@ -1,9 +1,7 @@
-
 String GPS_data, Sensors_data, Sonar_data, SD_data;
 uint8_t cont_file = 0;
 
 void Save_data_SD(){
-  
     print_SD.print(USV_data.data_millis);
     print_SD.print(",");
     print_SD.print(USV_data.gps_year);
@@ -61,10 +59,8 @@ void Save_data_SD(){
     print_SD.println(USV_data.profile_sonar);
     print_SD.close();        
 }
-  
 
 void Print_Bluetooth_data(){
-  
     Serial3.print("$DATA");
     Serial3.print(",");
     Serial3.print(USV_data.data_millis);
@@ -116,8 +112,7 @@ void Print_Bluetooth_data(){
     Serial3.println(USV_data.deep_sonar); 
 }
 
-void Print_PC_Serial_data(){ 
-  
+void Print_PC_Serial_data(){
     Serial.print(USV_data.data_millis);
     Serial.print(",");
     Serial.print(USV_data.gps_year);
@@ -175,9 +170,7 @@ void Print_PC_Serial_data(){
     Serial.println(USV_data.profile_sonar);       
 }
 
-
 void CreateNewFileName(){
-
   // Check new Filename 
   for (uint8_t i = 0; i < 100; i++) {
     FileName[4] = i/10 + '0';
@@ -188,7 +181,6 @@ void CreateNewFileName(){
   }
 } 
 
-
 void Print_SD(){    
     if(flag){
         if(new_file){
@@ -197,7 +189,7 @@ void Print_SD(){
             print_SD.println(F(Header));
             print_SD.close();
             new_file = 0;
-        }   
+        }
         print_SD = SD.open(FileName, FILE_WRITE); 
         if (print_SD){                                           // If SD ok, reading and saving data if flag == True
             OK_SD = "OK";                
@@ -217,12 +209,10 @@ void Print_SD(){
       RECORD= "NA";
       digitalWrite(led_Pin, LOW);
     }                          
-}        
-
+}
 
 //Status(OK_SD,OK_GPS,OK_Sonar,NA_1,NA_2,RECORD,Counter)
 void Status(String OK_SD, String OK_GPS, String OK_Sonar, String NA_1, String NA_2, String RECORD, uint16_t Counter){
-
     Status_REC.concat("$STS");
     Status_REC.concat(",");
     Status_REC.concat(OK_SD);

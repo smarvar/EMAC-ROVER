@@ -21,7 +21,7 @@ static void DateTime(){
     else{
         USV_data.gps_year = 2022;
         USV_data.gps_month = 00;
-        USV_data.gps_day = 00;  
+        USV_data.gps_day = 00;
     }
   
     if (gps.time.isValid()){
@@ -32,7 +32,7 @@ static void DateTime(){
     else{
         USV_data.gps_hour = 00;
         USV_data.gps_minute = 00;
-        USV_data.gps_second = 00;     
+        USV_data.gps_second = 00;
     }
 }
 
@@ -61,7 +61,6 @@ void Data_gps(){
         USV_data.gps_course = 0;
         USV_data.gps_n_satelites = 0;
         USV_data.gps_precision = 0;
-        USV_data.gps_n_sentenses = 0;      
+        USV_data.gps_n_sentenses = 0;
       }
-                  
 }
