@@ -15,7 +15,7 @@
 #define Second 1000
 #define Minute 60000
 #define bufferLen 150
-#define analog_sensors 4
+#define analog_sensors 2
 #define data_separator ','
 #define sens_separator ';'
 #define coordinate_decimals 6

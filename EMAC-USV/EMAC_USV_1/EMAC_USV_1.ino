@@ -9,7 +9,7 @@
 
 void setup(){
     Serial_main();
-    Serial.println("EMAC-USV Version 16/05/2022 --> sensors (CH0 = tem007, CH1 = obs001); Sensors_null = -9999; Bluetooth = GTPA010");
+    Serial.println("EMAC-USV Version 17/05/2022 --> sensors (CH0 = tem007, CH1 = obs001); Sensors_null = -9999; Bluetooth = GTPA010");
     Bluetooth_conf();                                                       //Enable Bluetooth comunication
     Activate_sensors();                                                     //Enable Power Sensors
     Activate_gsm();                                                         //Enable gsm communication
@@ -35,8 +35,8 @@ void loop(){
               Status(OK_SD,OK_GPS,OK_Sonar,NA_1,NA_2,RECORD,counter);       // The status of sensors and state is sent by bluetooth 
          }
       }
-      if (millis() - last_interrupt > seconds_interrupt*1000){
+     /* if (millis() - last_interrupt > seconds_interrupt*1000){
           last_interrupt = millis();
           counter_total();
-      }
+      } */
 }
