@@ -4,6 +4,10 @@ String text_bluetooth = "", Status_REC ="", Data_file ="";
 bool flag = 0;
 bool new_file = 0;
 
+void Bluetooth_conf();
+void Bluetooth_read();
+
+
 void Bluetooth_conf(){
   pinMode(Bluetooth_pin, OUTPUT);       // Power pin Bluetooth Activated
   digitalWrite(Bluetooth_pin, HIGH);

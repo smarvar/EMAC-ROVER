@@ -9,7 +9,7 @@
 
 void setup(){
     Serial_main();
-    Serial.println("EMAC-USV Version 17/05/2022 --> sensors (CH0 = tem007, CH1 = obs001); Sensors_null = -9999; Bluetooth = GTPA010");
+    Serial.println("EMAC-USV Version 19/05/2022 --> sensors (CH0 = tem007, CH1 = obs001); Sensors_null = -9999; Bluetooth = GTPA010");
     Bluetooth_conf();                                                       //Enable Bluetooth comunication
     Activate_sensors();                                                     //Enable Power Sensors
     Activate_gsm();                                                         //Enable gsm communication

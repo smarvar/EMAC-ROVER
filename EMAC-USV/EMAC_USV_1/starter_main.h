@@ -1,4 +1,15 @@
 
+// Function definitions
+void Serial_main();
+void Activate_sensors();
+void Activate_gsm();
+void Activate_servo();
+void Activate_SD();
+void Upload_files_config(bool);
+void Header_data();
+void Timer_millis();
+void Sampling_time();
+
 
 void Serial_main(){
     Serial.begin(PC_Baud);     // Baud rate PC
@@ -9,6 +20,7 @@ void Serial_main(){
     Serial2.setTimeout(100);
   }
 
+
 void Activate_sensors(){
     pinMode(Sensors_Pin, OUTPUT);
     digitalWrite(Sensors_Pin, HIGH);
@@ -16,14 +28,17 @@ void Activate_sensors(){
     digitalWrite(Digital_pin, HIGH); 
   }  
 
+
 void Activate_gsm(){
     pinMode(GSM_Pin, OUTPUT);
     digitalWrite(GSM_Pin, HIGH);
   }
 
+
 void Activate_servo(){
     myservo.attach(Servo_pin);  // Pin Servo
   }
+
   
 void Activate_SD(){
     pinMode(SD_pin, OUTPUT);   // Writing pin SD
@@ -32,6 +47,7 @@ void Activate_SD(){
     pinMode(led_Pin, OUTPUT);  // LED check
     digitalWrite(led_Pin, HIGH);
     }
+
 
 //Initialization function, setup and upload data files
 void Upload_files_config(bool if_print){
@@ -45,9 +61,11 @@ void Upload_files_config(bool if_print){
           Serial.println(" SD initialization failed!");    
 }
 
+
 void Header_data(){                                      
     Serial.println(F(Header));
 }
+
 
 //Get data time
 void Timer_millis(){  

@@ -14,6 +14,9 @@ static Ping1D ping { Serial1 }; // The Ping1D object
 float angle_sonar = 0.0;        // Sonar emission angle
 String P_data;
 
+void Data_sonar(bool);
+
+
 // Function that reads and prints the sonar data
 void Data_sonar(bool profile_data){        
   

@@ -1,5 +1,15 @@
+
 String GPS_data, Sensors_data, Sonar_data, SD_data;
 uint8_t cont_file = 0;
+
+// Function definitions
+void Save_data_SD();
+void Print_Bluetooth_data();
+void Print_PC_Serial_data();
+void CreateNewFileName();
+void Print_SD();
+void Status(String, String, String, String, String, String, uint16_t);
+
 
 void Save_data_SD(){
     print_SD.print(USV_data.data_millis);

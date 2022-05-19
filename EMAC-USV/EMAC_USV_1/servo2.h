@@ -5,6 +5,8 @@
 Servo myservo;  // create servo object to control a servo
   int pos = 0;    // variable to store the servo position
 
+void turn_servo(int, int, int);
+
 void turn_servo(int min_angle, int max_angle, int step_angle) {
     if (pos >= min_angle){
       pos +=step_angle;

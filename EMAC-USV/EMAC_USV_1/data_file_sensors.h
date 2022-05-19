@@ -29,26 +29,28 @@
                   https://create.arduino.cc/projecthub/electropeak/sd-card-module-with-arduino-how-to-read-write-data-37f390
 */
 
+#include <SD.h>
+File print_SD;      // The SD object
+
+
+// Attributes definition
 uint32_t digital_counter = 0;
 long last_interrupt = millis();
 float correntometro_coversion = 0.01; //--> 5/500
 float num_null = -9999;
-
-#include <SD.h>
-File print_SD;      // The SD object
-
-struct Sensors_info{
-      String Descripcion, Unidad, X, Y;
-      uint8_t ID, Decimales, Entrada, Modo, Salida;
-      uint16_t Raw;
-      float Sensor_value;};
-
-Sensors_info Sensorx[analog_sensors];
 Separador s;
 char buffer_data[bufferLen];
 float analog_resolution = DC_power/ADC_resolution;
 unsigned long sampling_rate = 0;
 
+
+// Struct definitions
+struct Sensors_info{
+      String Descripcion, Unidad, X, Y;
+      uint8_t ID, Decimales, Entrada, Modo, Salida;
+      uint16_t Raw;
+      float Sensor_value;};
+Sensors_info Sensorx[analog_sensors];
 
 struct Sensors_data{
       float gps_latitude, gps_longitude, gps_altitude, gps_speed, gps_course, sens_0=num_null, sens_1=num_null, sens_2=num_null, 
@@ -56,9 +58,19 @@ struct Sensors_data{
       uint8_t gps_n_satelites, gps_precision, gps_n_sentenses, gps_month, gps_day, gps_hour, gps_minute, gps_second;
       uint16_t data_millis, gps_year, confidence_sonar;
       uint32_t deep_sonar;
-      String profile_sonar;};
-
+      String profile_sonar;};      
 Sensors_data USV_data;
+
+
+// Function definitions
+String Scan_file(const char, const char);
+String GetFilePath(String, String);
+void Sensors(bool);
+float SensorValue(int);
+void Pulse_counter();
+void counter_total();
+void Data_sensors ();
+
 
 //Scans the contents of a file using a given path and description
 String Scan_file(const char *filename, const char *variable){
@@ -85,6 +97,7 @@ String Scan_file(const char *filename, const char *variable){
           }
 }
 
+
 //Get the path of a file if it exists in the folder
 String GetFilePath(String name_file, String folder){
       print_SD = SD.open(Sensors_folder);
@@ -109,6 +122,7 @@ String GetFilePath(String name_file, String folder){
           entry.close();
      }
 }
+
 
 //Reading file sensors by channel
 void Sensors(bool print_serial){
@@ -173,6 +187,7 @@ void Sensors(bool print_serial){
         }
     }
 }
+
 
 //Get sensor value by channel selected
 float SensorValue(int channel){

@@ -10,6 +10,11 @@
 #include <TinyGPS++.h>
 TinyGPSPlus gps;    // The TinyGPS++ object
 
+// Function definitions
+static void DateTime();
+void Data_gps();
+
+
 // Function that prints the GPS date and time
 static void DateTime(){ 
     
